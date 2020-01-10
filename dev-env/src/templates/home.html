@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+       <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Charts.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <meta charset="utf-8">
+  </head>
+  <body>
+<header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+                <a class="btn btn-social-icon btn-linkedin" href="https://www.linkedin.com/in/alexander-shelton-codes/">
+                    <span class="fa fa-linkedin"></span>
+                </a>
+                <a class="btn btn-social-icon btn-github" href="https://www.github.com/alexshelto/">
+                    <span class="fa fa-github"></span>
+                </a>
+                <a class="btn btn-brand btn-youtube" href="https://www.youtube.com/channel/UCNm_1qvIVDRwbeyikyCXOIg/videos?view=">
+                    <span class="fa fa-youtube"></span>
+                </a>
+            <div class="container">
+            <a class="navbar-brand mr-4" href="/">Alex's Utility Site</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+                <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="{{url_for('main.data')}}" >Past Data</a>
+                <a class="nav-item nav-link" href="{{url_for('main.about')}}">About site</a>
+                <!--- add in a if user is authenticated for python browser programming-->
+
+                </div>
+                <!-- Navbar Right Side -->
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" >Login</a>
+                    <a class="nav-item nav-link">Register</a>
+                </div>
+            </div>
+            </div>
+        </nav>
+        </header>
+    <main role="main" class="container">
+            <div class="row">
+            <div class="col-md-9">
+
+    <center>
+    <canvas id="chart" width="600" height="400"></canvas>
+    <script>
+
+
+    barData = {
+      labels : [
+           {% for item in labels %}
+            "{{ item }}",
+           {% endfor %}
+         ],
+         data : [
+                {% for item in values %}
+                   "{{ item }}",
+                  {% endfor %} ]
+       }
+
+  // Bar chart
+      new Chart(document.getElementById("chart"), {
+        type: 'bar',
+        data: {
+          labels: barData.labels,
+          datasets: [
+            {
+              label: "Time (minutes)",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#ff0", "#f02e85"],
+              data: barData.data
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false,
+          },
+          title: {
+            display: true,
+            text: 'Raspberry PI LED time on',
+            fontColor: "#FFFFFF"
+          },
+          responsive: true,
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                fontColor: "#ffffff"
+              }
+            }],
+          xAxes: [{
+            ticks: {
+              fontColor: "#ffffff"
+            }}]
+          }
+        }
+      });
+
+    </script>
+
+      </center>
+  </div>
+
+            </div>
+            </main>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </body>
+</html>
