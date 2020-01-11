@@ -1,8 +1,8 @@
 body {
-    background: #282828;
-    background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+    background-color: white;
+    /* background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);  */
     background-size: 400% 400%;
-    animation: Gradient 15s ease infinite;
+    /* animation: Gradient 25s ease infinite; */
     margin-top: 5rem;
   }
 

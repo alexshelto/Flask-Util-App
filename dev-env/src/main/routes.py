@@ -1,7 +1,12 @@
 #Alexander Shelton
 #Main content routing of webapp
 
-from flask import render_template, request, Blueprint
+from flask import render_template, request, Blueprint, flash
+from src import db
+from src.model import graph_data
+
+from datetime import datetime
+
 
 #Creating a blueprint instance
 main = Blueprint('main', __name__)
@@ -20,7 +25,22 @@ def home():
 def about():
     return render_template('about.html')
 
-
 @main.route('/data')
 def data():
     return render_template('data.html')
+
+@main.route('/<time>')
+def enter(time):
+    data = graph_data(time_spent=time)
+    db.session.add(data)
+    db.session.commit()
+    return ('<h1> Added new info </h1>')
+
+
+
+@main.route('/show')
+def show():
+    now = datetime.now()
+    times = graph_data.query.filter_by(id=1)
+
+    return render_template('test.html', times=times)

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+    <script>
+
+      let labels = [
+           {% for item in labels %}
+            "{{ item }}",
+           {% endfor %}
+           ]
+
+           for(const thing in labels){
+             console.log(thing);
+           }
+
+
+    </script>
+{% endblock %}
