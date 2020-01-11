@@ -2,6 +2,80 @@
 {% block content %}
     <h1>Data</h1>
     <p>
-        This is where all past data will be 
+        This is where all past data will be
     </p>
+
+    <main role="main" class="container">
+
+  <div class="line-graph">
+  <div class="row">
+  <center>
+  <canvas id="line-chart" width="800" height="450"></canvas>
+
+    <script type="text/javascript">
+    // creating an array with numbers 1-52 for weeks of the year
+    let label_array = [];
+    for (let i = 1; i < 53; i++){
+      label_array.push(i);
+    }
+
+    let dataplot = [];
+    for (let i = 1; i < 52; i++){
+      let num = Math.floor(Math.random() * 100)
+      dataplot.push(num);
+    }
+
+      new Chart(document.getElementById("line-chart"), {
+        type: 'line',
+        data: {
+          labels: label_array,
+          datasets: [{
+              data:dataplot, //[282,350,411,502,635,809,947,1402,3700,5267],
+              label: "Time spent (min)",
+              borderColor: "#8e5ea2",
+              fill: false
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          title: {
+            display: true,
+            text: 'Monthly Time Raspberry Pi logging',
+            fontColor: "#ffffff"
+          },
+          scales:{
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: "Minutes",
+                fontColor: "#ffffff"
+              },
+              ticks: {
+                beginAtZero: true,
+                fontColor: "#ffffff"
+              }
+            }],
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: "Months of the year",
+              fontColor: "#ffffff"
+            },
+            ticks: {
+              fontColor: "#ffffff"
+            }
+          }]
+          }
+        }
+      });
+
+    </script>
+    </center>
+    </div>
+      </div>
+      </main>
+
 {% endblock %}
