@@ -7,39 +7,38 @@ from src.model import graph_data
 
 from datetime import datetime
 
+# querying
+import sqlite3
+from sqlite3 import Error
+
+
 
 #Creating a blueprint instance
 main = Blueprint('main', __name__)
 
+
+
+
 @main.route('/')
 @main.route('/home')
 def home():
-    legend = 'Weekly Data'
-    labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    values = [10,15,23,12,32,17,25]
-    return render_template('home.html', values=values, labels=labels, legend=legend)
+    return render_template('home.html')
 
 
 @main.route('/about')
 def about():
     return render_template('about.html')
 
-@main.route('/data')
-def data():
-    return render_template('data.html')
 
-@main.route('/<time>')
+@main.route('/<int:time>')
 def enter(time):
-    data = graph_data(time_spent=time)
-    db.session.add(data)
-    db.session.commit()
-    return ('<h1> Added new info </h1>')
+    try: #converting num to string or chekcing if it is  astring. If it is not a string, value err, wont commit to db
+        int_time = int(time)
+        data = graph_data(time_spent=int_time)
+        db.session.add(data)
+        db.session.commit()
+        return ('<h1> Added new info </h1>')
 
-
-
-@main.route('/show')
-def show():
-    now = datetime.now()
-    times = graph_data.query.filter_by(id=1)
-
-    return render_template('test.html', times=times)
+    except ValueError as e:
+        print(e)
+        return render_template("about.html")

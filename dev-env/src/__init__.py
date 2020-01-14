@@ -25,8 +25,11 @@ def create_app():
 
 
     #Importing blueprint instances
-    from .main.routes import main
+    from src.main.routes import main
+    from src.data.routes import data
+
     #registering blueprints
     app.register_blueprint(main)
+    app.register_blueprint(data)
 
     return app

@@ -1,11 +1,47 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Data</h1>
-    <p>
-        This is where all past data will be
-    </p>
 
     <main role="main" class="container">
+
+      <div class="line-graph">
+        <div class="row">
+
+          <center>
+            <canvas id="pie-chart" width="800" height="450"></canvas>
+              <script type="text/javascript">
+              new Chart(document.getElementById("pie-chart"), {
+                type: 'pie',
+                data: {
+                  labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+                  datasets: [{
+                    label: "Population (millions)",
+                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#ff0", "#f02e85"],
+                    data: [43,54,12,54,12,54,77]
+                  }]
+                },
+                options: {
+                  cutoutPercentage: 40,
+                  legend: {
+                    labels:{
+                      fontColor: "#ffffff",
+                      fontSize: 12,
+
+                    }
+                  },
+                  title: {
+                    display: true,
+                    text: 'Last weeks time breakdown (min)',
+                    fontColor: "#ffffff"
+                  }
+                }
+              });
+
+            </script>
+        </center>
+        </div>
+    </div>
+
+    <div class="gap"></div>
 
   <div class="line-graph">
   <div class="row">
@@ -32,7 +68,7 @@
           datasets: [{
               data:dataplot, //[282,350,411,502,635,809,947,1402,3700,5267],
               label: "Time spent (min)",
-              borderColor: "#8e5ea2",
+              borderColor: "#7d0aad",
               fill: false
             }
           ]
@@ -76,6 +112,10 @@
     </center>
     </div>
       </div>
+
+
+
+
       </main>
 
 {% endblock %}

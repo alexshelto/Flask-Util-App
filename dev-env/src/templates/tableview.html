@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+  {% block content %}
+
+<script type="text/javascript">
+
+  let sum = 0;
+  let table = [
+       {% for item in data %}
+        "{{ item }}",
+       {% endfor %}
+     ]
+     let week = table[1];
+     for(let iter = week; iter < 52; iter++){
+       if (table[1] == week:
+       table[3]
+     }
+
+</script>
+
+
+
+  <table class="data-table">
+    <tr>
+      <th class="data-th">ID</th>
+      <th class="data-th">Week</th>
+      <th class="data-th">Day</th>
+      <th class="data-th">Time Spent(min)</th>
+      <th class="data-th">Time Stamp</th>
+    </tr>
+
+    {% for i,w,d,t,tt  in data %}
+
+        <tr class="table-tr">
+                <td class="data-td">{{ i }}</td>
+                <td class="data-td">{{ w }}</td>
+                <td class="data-td">{{ d }}</td>
+                <td class="data-td">{{ t }}</td>
+                <td class="data-td">{{ tt }}</td>
+        </tr>
+    {% endfor %}
+  </table>
+
+{% endblock %}

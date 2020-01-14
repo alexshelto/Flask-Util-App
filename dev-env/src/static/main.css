@@ -1,8 +1,8 @@
 body {
     background-color: white;
-    /* background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);  */
+    /* background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
     background-size: 400% 400%;
-    /* animation: Gradient 25s ease infinite; */
+    animation: Gradient 15s ease infinite; */
     margin-top: 5rem;
   }
 
@@ -82,17 +82,71 @@ body {
     vertical-align: middle;
   }
 
-  .account-img {
-    height: 125px;
-    width: 125px;
-    margin-right: 20px;
-    margin-bottom: 16px;
-  }
 
-  .account-heading {
-    font-size: 2.5rem;
-  }
+
+.col-md-8{
+  margin: 0 auto;
+}
+
 .col-md-9{
   background-color: #5f788a;
+  margin: 0 auto;
+  width: auto;
+  height: auto;
   /* background-color: white; */
+}
+
+.line-graph{
+  height: 450px;
+  width: 800px;
+  background-color: #5f788a;
+  display: inline-block;
+}
+/*
+.chart-container {
+    width: 1000px;
+    height:600px
+} */
+
+
+.gap{
+  background-color: white;
+  width: 800px;
+  height: 100px;
+
+}
+
+
+/* about section formatting */
+.about-wrapper{
+  text-align: center;
+}
+
+.about-inside{
+  display: inline-block;
+}
+
+
+.graph-container{
+  margin: 0 auto;
+}
+
+.data-table {
+  width: 100%;
+}
+
+.data-th{
+  height: 50px;
+}
+
+
+.data-td {
+  height: 20px;
+  vertical-align: bottom;
+}
+
+.data-td: hover {background-color: red;}
+
+.data-th, .data-td {
+ border-bottom: 1px solid #ddd;
 }
