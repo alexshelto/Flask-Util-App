@@ -2,6 +2,7 @@
 {% block content %}
 
 
+
     <main role="main" class="container">
 
       <div class="line-graph">
@@ -10,17 +11,26 @@
           <center>
             <canvas id="pie-chart" width="800" height="450"></canvas>
               <script type="text/javascript">
-
-
+                pieData = {
+                labels : [
+                    {% for item in labels %}
+                      "{{ item }}",
+                    {% endfor %}
+                  ],
+                  data : [
+                          {% for item in values %}
+                            "{{ item }}",
+                            {% endfor %} ]
+                }
 
               new Chart(document.getElementById("pie-chart"), {
                 type: 'pie',
                 data: {
-                  labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+                  labels: pieData.labels,
                   datasets: [{
-                    label: "Population (millions)",
+                    label: "Time spent (minutes)",
                     backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#ff0", "#f02e85"],
-                    data: [43,54,12,54,12,54,77]
+                    data: pieData.data
                   }]
                 },
                 options: {

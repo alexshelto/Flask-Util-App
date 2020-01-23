@@ -86,8 +86,18 @@ def weekdata():
 def summary_data():
     THISWEEK = date.today().isocalendar()[1] #Number of the current week number ex: jan 1st would return '1'
     #check for week not being '1' or will display last years set
-    LASTWEEK = THISWEEK-1
+    LASTWEEK = THISWEEK -1
+
+
     last_week = dbtools.returnWeeklyTable(db_path, LASTWEEK)
 
+    weeklyData = [0] * 7
+    dataDate = 0
+    for row in last_week:
+        if row[1] != dataDate:
+            totalTime = 0
+            dataDate = row[2]
+        weeklyData[dataDate] += row[3] #adding total
 
-    return render_template('summary_data.html', data=last_week)
+    labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    return render_template('summary_data.html', labels= labels, values=weeklyData)
