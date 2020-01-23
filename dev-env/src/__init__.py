@@ -19,10 +19,6 @@ def create_app():
     app.config.from_object(Config) #Configuring FlaskApp from config.py file. allows multiple instances
     db.init_app(app)
 
-    # with app.app_context():
-    #     db.create_all()
-
-
 
     #Importing blueprint instances
     from src.main.routes import main

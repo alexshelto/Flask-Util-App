@@ -102,11 +102,6 @@ body {
   background-color: #5f788a;
   display: inline-block;
 }
-/*
-.chart-container {
-    width: 1000px;
-    height:600px
-} */
 
 
 .gap{
@@ -131,6 +126,10 @@ body {
   margin: 0 auto;
 }
 
+
+
+/* TABLEVIEW HTML */
+
 .data-table {
   width: 100%;
 }
@@ -145,8 +144,19 @@ body {
   vertical-align: bottom;
 }
 
-.data-td: hover {background-color: red;}
 
 .data-th, .data-td {
  border-bottom: 1px solid #ddd;
 }
+
+.week-input {
+  background-color: #a9a9a9;
+  height: 100px;
+  width: 500px;
+  text-align: center;
+}
+
+.week-entry{
+  display: inline-block;
+}
+

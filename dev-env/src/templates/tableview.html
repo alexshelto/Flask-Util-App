@@ -1,22 +1,16 @@
 {% extends "layout.html" %}
+
   {% block content %}
+  <div class="week-input">
 
-<script type="text/javascript">
+    <h2> Current week number: {{week}} </h2>
+    <form class="week-entry" action='/tableview' method="post">
+      <input type="text" name="week" week number>
+       <input type="submit" value="Submit">
+    </form>
 
-  let sum = 0;
-  let table = [
-       {% for item in data %}
-        "{{ item }}",
-       {% endfor %}
-     ]
-     let week = table[1];
-     for(let iter = week; iter < 52; iter++){
-       if (table[1] == week:
-       table[3]
-     }
 
-</script>
-
+  </div>
 
 
   <table class="data-table">
