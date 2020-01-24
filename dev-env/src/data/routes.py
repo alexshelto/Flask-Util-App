@@ -1,3 +1,8 @@
+# Alex Shelton
+# Routes.py : handles all routing that has to do with showing/manipulating data
+# For files that show graphing OR tableview or sql data
+#
+
 
 from flask import render_template, request, Blueprint, flash, redirect
 from src import db
@@ -18,8 +23,6 @@ db_path = "/Users/alexshelton/Desktop/Flask-Util-App/dev-env/src/data.sqlite"
 #Creating a blueprint instance
 data = Blueprint('data', __name__)
 
-
-
 @data.route('/tableview',methods=['GET', 'POST'])
 def tableview():
     THISWEEK = date.today().isocalendar()[1] #Number of the current week number ex: jan 1st would return '1'
@@ -36,7 +39,6 @@ def tableview():
             alldata = dbtools.returnTable(db_path)
             return render_template('tableview.html', data=alldata, week=THISWEEK)
         
-        
         #else load week:
         else:
             weekdata = dbtools.returnWeeklyTable(db_path, selected_week)
@@ -50,48 +52,29 @@ def tableview():
 
 
 
-
-
-
-
-
-
-
-
 @data.route('/weekdata')
 def weekdata():
-    # TODO: FIX long query code in db tools function
-    #
-    #
-    #
+    # grab current week number
+    # returnWeeklySums returns an array with totals for mon-fri. size n = 7
+
     THISWEEK = date.today().isocalendar()[1] #Number of the current week number ex: jan 1st would return '1'
-    weeklyData = [0]*7
-    dataDate = 0
-
-    weeklyTable = dbtools.returnWeeklyTable(db_path, THISWEEK)
-    for row in weeklyTable:
-        if row[1] != dataDate:
-            dataDate = row[2]
-        weeklyData[dataDate] += row[3] #adding total
-
+    weekly_data = dbtools.returnWeeklySums(db_path,THISWEEK)
     legend = 'Weekly Data'
     labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    return render_template('weekdata.html', values=weeklyData, labels=labels, legend=legend)
+    return render_template('weekdata.html', values=weekly_data, labels=labels, legend=legend)
 
 
 
 
 @data.route('/summary_data')
 def summary_data():
+    # grab current week number
+    # returnWeeklySums returns an array with totals for mon-fri. size n = 7
+    # return n = 52 size array with sums of every week
+    
     THISWEEK = date.today().isocalendar()[1] #Number of the current week number ex: jan 1st would return '1'
-    #check for week not being '1' or will display last years set
     LASTWEEK = THISWEEK -1
-
-
-
     weekly_data = dbtools.returnWeeklySums(db_path,LASTWEEK)
     all_weeks_data = dbtools.return52weeks(db_path)
-
-
     labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     return render_template('summary_data.html', labels= labels, values=weekly_data, plot_data = all_weeks_data)

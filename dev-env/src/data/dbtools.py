@@ -1,3 +1,6 @@
+# Alexander Shelton
+# dbtools.py holds functions that access sqlite3 database and return weekly/yearly data sums
+# File AND functions are called in /data/routes.py 
 
 
 from flask import render_template, request, Blueprint, flash
@@ -10,14 +13,9 @@ import sqlite3
 from sqlite3 import Error
 
 
+
+
 db_path = "/Users/alexshelton/Desktop/Flask-Util-App/dev-env/src/data.sqlite"
-
-
-#TODO: Create a function that totals up weekly time into m-s 
-
-
-
-
 
 
 def create_connection(db_path):

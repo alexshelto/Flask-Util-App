@@ -36,6 +36,7 @@ def enter(time):
         data = graph_data(time_spent=int_time)
         db.session.add(data)
         db.session.commit()
+     
         return redirect(url_for('main.home'))
 
     except ValueError as e:
