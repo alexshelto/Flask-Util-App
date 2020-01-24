@@ -1,7 +1,7 @@
 #Alexander Shelton
 #Main content routing of webapp
 
-from flask import render_template, request, Blueprint, flash
+from flask import render_template, request, Blueprint, flash, redirect, url_for
 from src import db
 from src.model import graph_data
 
@@ -36,7 +36,7 @@ def enter(time):
         data = graph_data(time_spent=int_time)
         db.session.add(data)
         db.session.commit()
-        return ('<h1> Added new info </h1>')
+        return redirect(url_for('main.home'))
 
     except ValueError as e:
         print(e)
