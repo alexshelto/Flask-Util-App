@@ -1,7 +1,9 @@
-#Alexander Shelton
-#
-#
 
+# -*- coding: utf-8 -*-
+
+#Alexander Shelton
+# 
+#
 from src import create_app
 from src import db
 

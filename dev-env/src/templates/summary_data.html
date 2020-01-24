@@ -23,6 +23,7 @@
                             {% endfor %} ]
                 }
 
+
               new Chart(document.getElementById("pie-chart"), {
                 type: 'pie',
                 data: {
@@ -69,11 +70,11 @@
       label_array.push(i);
     }
 
-    let dataplot = [];
-    for (let i = 1; i < 52; i++){
-      let num = Math.floor(Math.random() * 100)
-      dataplot.push(num);
-    }
+    dataplot = [
+    {% for item in plot_data %}
+      "{{ item }}",
+    {% endfor %}
+    ]
 
       new Chart(document.getElementById("line-chart"), {
         type: 'line',

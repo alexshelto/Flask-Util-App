@@ -71,7 +71,6 @@ def weekdata():
     weeklyTable = dbtools.returnWeeklyTable(db_path, THISWEEK)
     for row in weeklyTable:
         if row[1] != dataDate:
-            totalTime = 0
             dataDate = row[2]
         weeklyData[dataDate] += row[3] #adding total
 
@@ -89,15 +88,10 @@ def summary_data():
     LASTWEEK = THISWEEK -1
 
 
-    last_week = dbtools.returnWeeklyTable(db_path, LASTWEEK)
 
-    weeklyData = [0] * 7
-    dataDate = 0
-    for row in last_week:
-        if row[1] != dataDate:
-            totalTime = 0
-            dataDate = row[2]
-        weeklyData[dataDate] += row[3] #adding total
+    weekly_data = dbtools.returnWeeklySums(db_path,LASTWEEK)
+    all_weeks_data = dbtools.return52weeks(db_path)
+
 
     labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    return render_template('summary_data.html', labels= labels, values=weeklyData)
+    return render_template('summary_data.html', labels= labels, values=weekly_data, plot_data = all_weeks_data)
