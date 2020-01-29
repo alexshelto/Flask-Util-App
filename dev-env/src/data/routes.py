@@ -4,7 +4,7 @@
 #
 
 
-from flask import render_template, request, Blueprint, flash, redirect
+from flask import render_template, request, Blueprint, flash, redirect, url_for
 from src import db
 from src.model import graph_data
 
@@ -16,7 +16,8 @@ from src.data import dbtools
 
 
 
-db_path = "/Users/alexshelton/Desktop/Flask-Util-App/dev-env/src/data.sqlite"
+# db_path = "/Users/alexshelton/Desktop/Flask-Util-App/dev-env/src/data.sqlite"
+db_path = dbtools.db_path
 
 
 
@@ -28,24 +29,29 @@ def tableview():
     THISWEEK = date.today().isocalendar()[1] #Number of the current week number ex: jan 1st would return '1'
 
     if request.method == 'POST':
-        selected_week =  int(request.form.get('week'))
+        try:
+            selected_week =  int(request.form.get('week'))
+        except ValueError:
+            flash("Invalid Value", "failure")
+            return redirect(url_for('data.tableview'))
+
         #Checking bounds weeks are 1-52:
         if selected_week > 52 or selected_week < 0:
             flash("invalid")
             pass# Leave if statement logic: show current weeks table
-        
+
         #IF week is 0: web page loads whole table
         elif selected_week == 0:
-            alldata = dbtools.returnTable(db_path)
+            alldata = dbtools.returnTable()
             return render_template('tableview.html', data=alldata, week=THISWEEK)
-        
+
         #else load week:
         else:
-            weekdata = dbtools.returnWeeklyTable(db_path, selected_week)
+            weekdata = dbtools.returnWeeklyTable(selected_week)
             return render_template('tableview.html', data=weekdata, week=THISWEEK)
 
     #Code executes if inputted week was > 52 or < 0:
-    current_week = dbtools.returnWeeklyTable(db_path, THISWEEK)
+    current_week = dbtools.returnWeeklyTable(THISWEEK)
     return render_template('tableview.html', data=current_week, week=THISWEEK)
 
 
@@ -58,7 +64,7 @@ def weekdata():
     # returnWeeklySums returns an array with totals for mon-fri. size n = 7
 
     THISWEEK = date.today().isocalendar()[1] #Number of the current week number ex: jan 1st would return '1'
-    weekly_data = dbtools.returnWeeklySums(db_path,THISWEEK)
+    weekly_data = dbtools.returnWeeklySums(THISWEEK)
     legend = 'Weekly Data'
     labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     return render_template('weekdata.html', values=weekly_data, labels=labels, legend=legend)
@@ -71,10 +77,10 @@ def summary_data():
     # grab current week number
     # returnWeeklySums returns an array with totals for mon-fri. size n = 7
     # return n = 52 size array with sums of every week
-    
+
     THISWEEK = date.today().isocalendar()[1] #Number of the current week number ex: jan 1st would return '1'
     LASTWEEK = THISWEEK -1
-    weekly_data = dbtools.returnWeeklySums(db_path,LASTWEEK)
-    all_weeks_data = dbtools.return52weeks(db_path)
+    weekly_data = dbtools.returnWeeklySums(LASTWEEK)
+    all_weeks_data = dbtools.return52weeks()
     labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     return render_template('summary_data.html', labels= labels, values=weekly_data, plot_data = all_weeks_data)
